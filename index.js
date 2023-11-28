@@ -17,7 +17,7 @@ const loginLimiter = rateLimit({
 
 app.get("/time.stamp", loginLimiter, (req, res) => {
   const now = moment.tz("America/Sao_Paulo");
-  const timestamp = now.valueOf();
+  const timestamp = now.unix();
 
   res.json({ timestamp });
 });
