@@ -1,9 +1,14 @@
 import moment from "moment-timezone";
 import express from "express";
 import rateLimit from "express-rate-limit";
+import { fileURLToPath } from 'url';
+import path from 'path';
 
 const app = express();
 const port = 3000;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug')
