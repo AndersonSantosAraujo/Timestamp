@@ -16,6 +16,13 @@ app.use(favicon(path.join(__dirname, 'public/favicon.ico')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug')
 
+app.use((_, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
+
 const loginLimiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 min
   max: 3,
@@ -24,14 +31,14 @@ const loginLimiter = rateLimit({
   }
 })
 
-app.get("/time.stamp", loginLimiter, (req, res) => {
+app.get("/time.stamp", loginLimiter, (_, res) => {
   const now = moment.tz("America/Sao_Paulo");
   const timestamp = now.unix();
 
   res.json({ timestamp });
 });
 
-app.get("*", (req, res) => {
+app.get("*", (_, res) => {
   res.render('index', { title: 'Page not found · AnderZone', heading: '404', text: 'This is not the web page you are looking for.' })
 });
 
