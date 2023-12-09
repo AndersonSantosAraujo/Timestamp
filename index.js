@@ -3,12 +3,15 @@ import express from "express";
 import rateLimit from "express-rate-limit";
 import { fileURLToPath } from 'url';
 import path from 'path';
+import favicon from 'serve-favicon';
 
 const app = express();
 const port = 3000;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+app.use(favicon(path.join(__dirname, 'public/favicon.ico')));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug')
